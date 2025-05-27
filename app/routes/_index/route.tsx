@@ -1,11 +1,11 @@
 import { useLoaderData } from "@remix-run/react";
 import { json } from "@remix-run/node";
 import { Card, Page } from "@shopify/polaris";
-import { prisma } from "~/db.server";
+import prisma from "../../db.server";
 
 type ProductTag = {
-  id: number;
-  productId: number;
+  id: string; // Adjusted to match serialized data
+  productId: string; // Adjusted to match serialized data
   tags: string[];
 };
 
