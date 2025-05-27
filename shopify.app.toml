@@ -3,11 +3,12 @@
 client_id = "3bd51ea4b27f1c661b01dae6a183631b"
 name = "product-tag-manager"
 handle = "product-tag-manager-7"
-application_url = "https://example.com/"
+application_url = "https://transmit-merger-hazard-design.trycloudflare.com"
 embedded = true
 
 [build]
 include_config_on_deploy = true
+automatically_update_urls_on_dev = true
 
 [webhooks]
 api_version = "2025-04"
@@ -25,7 +26,11 @@ api_version = "2025-04"
 scopes = "write_products"
 
 [auth]
-redirect_urls = [ "https://example.com/api/auth" ]
+redirect_urls = [
+  "https://transmit-merger-hazard-design.trycloudflare.com/auth/callback",
+  "https://transmit-merger-hazard-design.trycloudflare.com/auth/shopify/callback",
+  "https://transmit-merger-hazard-design.trycloudflare.com/api/auth/callback"
+]
 
 [pos]
 embedded = false

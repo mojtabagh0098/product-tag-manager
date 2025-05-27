@@ -1,5 +1,5 @@
 import { json, LoaderFunctionArgs } from "@remix-run/node";
-import { authenticate } from "~/shopify.server";
+import authenticate from "../db.server";
 import { Page, Card, Text } from "@shopify/polaris";
 import { useLoaderData } from "@remix-run/react";
 
@@ -34,7 +34,7 @@ export default function ProductList() {
     <Page title="Products">
       {products.map((product: any) => (
         <Card key={product.id}>
-          
+
           <Text variant="bodySm" as="p">
             Handle: {product.handle}
           </Text>
