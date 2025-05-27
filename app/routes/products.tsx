@@ -33,10 +33,12 @@ export default function ProductList() {
   return (
     <AppProvider i18n={{}}>
         <Page title="Products">
+            List:
+            
             {products.map((product: any) => (
                 <Card key={product.id}>
                 <Text variant="bodySm" as="p">
-                    Handle: {product.handle}
+                    Product Name: {product.handle}
                 </Text>
                 </Card>
             ))}
