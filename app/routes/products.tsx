@@ -1,6 +1,6 @@
 import { json, LoaderFunctionArgs } from "@remix-run/node";
 import { authenticate } from "../shopify.server";
-import { Page, Card, Text } from "@shopify/polaris";
+import { AppProvider, Page, Card, Text } from "@shopify/polaris";
 import { useLoaderData } from "@remix-run/react";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
@@ -31,14 +31,16 @@ export default function ProductList() {
   const { products } = useLoaderData<typeof loader>();
 
   return (
-    <Page title="Products">
-      {products.map((product: any) => (
-        <Card key={product.id}>
-          <Text variant="bodySm" as="p">
-            Handle: {product.handle}
-          </Text>
-        </Card>
-      ))}
-    </Page>
+    <AppProvider i18n={{}}>
+        <Page title="Products">
+            {products.map((product: any) => (
+                <Card key={product.id}>
+                <Text variant="bodySm" as="p">
+                    Handle: {product.handle}
+                </Text>
+                </Card>
+            ))}
+        </Page>
+    </AppProvider>
   );
 }

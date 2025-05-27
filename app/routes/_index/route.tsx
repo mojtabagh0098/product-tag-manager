@@ -18,7 +18,7 @@ export default function Index() {
   const { tags } = useLoaderData<typeof loader>();
 
   return (
-    <AppProvider>
+    <AppProvider i18n={{}}>
         <Page title="Product Tags Manager">
         {tags.map((tag: ProductTag) => (
             <Card key={tag.id} padding="400" roundedAbove="sm">
