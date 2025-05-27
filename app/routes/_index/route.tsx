@@ -23,7 +23,7 @@ export default function Index() {
         {tags.map((tag: ProductTag) => (
             <Card key={tag.id} padding="400" roundedAbove="sm">
             <h2>Product ID: {tag.productId}</h2>
-            <p>{tag.tags.join(", ")}</p>
+            tags: <p>{tag.tags.join(", ")}</p>
             </Card>
         ))}
         </Page>
