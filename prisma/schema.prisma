@@ -13,6 +13,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Session {
+  id            String    @id
+  shop          String
+  state         String
+  isOnline      Boolean   @default(false)
+  scope         String?
+  accessToken   String
+  userId        BigInt?
+  firstName     String?
+  lastName      String?
+  email         String?
+  accountOwner  Boolean   @default(false)
+  locale        String?
+  expires       DateTime?
+  collaborator  Boolean?  @default(false)
+  emailVerified Boolean?  @default(false)
+}
+
 model ProductTag {
   id        String   @id @default(uuid())
   productId String
