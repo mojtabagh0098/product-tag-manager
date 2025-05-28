@@ -1,8 +1,19 @@
-import { json, LoaderFunctionArgs } from "@remix-run/node";
-import { authenticate } from "../shopify.server";
-import { AppProvider, Page, Card, Text } from "@shopify/polaris";
-import { useLoaderData } from "@remix-run/react";
+import type {
+  LoaderFunctionArgs,
+  ActionFunctionArgs} from "@remix-run/node";
+import {
+  json,
+  redirect,
+} from "@remix-run/node";
+import { useLoaderData, useFetcher } from "@remix-run/react";
+import { Page, Card, TextField, Button, Text } from "@shopify/polaris";
+import { useState } from "react";
 
+import { authenticate } from "../shopify.server";
+import prisma from "../db.server";
+import { AppProvider } from "@shopify/shopify-app-remix/react";
+
+// 1️⃣ Loader: گرفتن محصولات از Shopify Admin API
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { admin } = await authenticate.admin(request);
 
@@ -27,21 +38,81 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   return json({ products });
 };
 
+// 2️⃣ Action: ذخیره کردن تگ‌ها در دیتابیس Postgres
+export const action = async ({ request }: ActionFunctionArgs) => {
+  const form = await request.formData();
+  const tag = form.get("tag")?.toString().trim();
+  const productId = form.get("productId")?.toString();
+
+  if (!tag || !productId) return redirect("/products");
+
+  const { session } = await authenticate.admin(request);
+  const shop = session.shop;
+
+  const existing = await prisma.productTag.findUnique({
+    where: { productId_shop: { productId, shop } },
+  });
+
+  if (existing) {
+    await prisma.productTag.update({
+      where: { productId_shop: { productId, shop } },
+      data: {
+        tags: { push: tag },
+      },
+    });
+  } else {
+    await prisma.productTag.create({
+      data: {
+        shop,
+        productId,
+        tags: [tag],
+      },
+    });
+  }
+
+  return redirect("/products");
+};
+
+// 3️⃣ کامپوننت UI: نمایش فرم و محصولات
 export default function ProductList() {
   const { products } = useLoaderData<typeof loader>();
+  const fetcher = useFetcher();
+  const [formStates, setFormStates] = useState<Record<string, string>>({});
+
+  const handleChange = (productId: string, value: string) => {
+    setFormStates((prev) => ({ ...prev, [productId]: value }));
+  };
+
 
   return (
-    <AppProvider i18n={{}}>
+    <AppProvider apiKey={process.env.SHOPIFY_API_KEY || ""}>
         <Page title="Products">
-            List:
-            
-            {products.map((product: any) => (
-                <Card key={product.id}>
-                <Text variant="bodySm" as="p">
-                    Product Name: {product.handle}
-                </Text>
-                </Card>
-            ))}
+        {products.map((product: any) => (
+            <Card key={product.id}>
+            <Text as="span">
+                {product.title}
+            </Text>
+            <Text variant="bodySm" as="p">
+                Handle: {product.handle}
+            </Text>
+            <fetcher.Form method="post">
+                <input type="hidden" name="productId" value={product.id} />
+                {/* <HorizontalStack alignment="center"> */}
+                <TextField
+                    label="Add tag"
+                    labelHidden
+                    name="tag"
+                    value={formStates[product.id] || ""}
+                    onChange={(value) => handleChange(product.id, value)}
+                    autoComplete="off"
+                />
+                <Button submit variant="primary">
+                    Add
+                </Button>
+                {/* </HorizontalStack> */}
+            </fetcher.Form>
+            </Card>
+        ))}
         </Page>
     </AppProvider>
   );

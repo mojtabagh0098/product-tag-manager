@@ -35,6 +35,8 @@ model ProductTag {
   id        String   @id @default(uuid())
   productId String
   shop      String
-  tags      String[]
+  tags      String[]  @default([])
   createdAt DateTime @default(now())
+
+  @@unique([productId, shop], name: "productId_shop")
 }
