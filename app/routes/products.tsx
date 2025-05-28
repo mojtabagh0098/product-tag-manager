@@ -15,7 +15,8 @@ import { AppProvider } from "@shopify/shopify-app-remix/react";
 
 // 1️⃣ Loader: گرفتن محصولات از Shopify Admin API
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const { admin } = await authenticate.admin(request);
+  const { admin, session } = await authenticate.admin(request);
+  const shop = session.shop;
 
   const response = await admin.graphql(`
     {
@@ -35,7 +36,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   const products = data.data.products.edges.map((edge: any) => edge.node);
 
-  return json({ products });
+  const tags = await prisma.productTag.findMany({
+    where: { shop },
+  });
+
+  return json({ products, tags });
 };
 
 // 2️⃣ Action: ذخیره کردن تگ‌ها در دیتابیس Postgres
@@ -75,7 +80,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 // 3️⃣ کامپوننت UI: نمایش فرم و محصولات
 export default function ProductList() {
-  const { products } = useLoaderData<typeof loader>();
+  const { products, tags } = useLoaderData<typeof loader>();
   const fetcher = useFetcher();
   const [formStates, setFormStates] = useState<Record<string, string>>({});
 
@@ -87,10 +92,14 @@ export default function ProductList() {
   return (
     <AppProvider apiKey={process.env.SHOPIFY_API_KEY || ""}>
         <Page title="Products">
-        {products.map((product: any) => (
+        {products.map((product: any) => {
+            const productTags = tags.find(
+                (t) => t.productId === product.id
+            )?.tags || [];
+            return (
             <Card key={product.id}>
             <Text as="span">
-                {product.title}
+                Product Title: {product.title}
             </Text>
             <Text variant="bodySm" as="p">
                 Handle: {product.handle}
@@ -100,7 +109,6 @@ export default function ProductList() {
                 {/* <HorizontalStack alignment="center"> */}
                 <TextField
                     label="Add tag"
-                    labelHidden
                     name="tag"
                     value={formStates[product.id] || ""}
                     onChange={(value) => handleChange(product.id, value)}
@@ -111,6 +119,15 @@ export default function ProductList() {
                 </Button>
                 {/* </HorizontalStack> */}
             </fetcher.Form>
+            {productTags.length > 0 && (
+                <>
+                  {productTags.map((tag: string, index: number) => (
+                    <Text key={index} tone="subdued" as="p">
+                      #{tag}
+                    </Text>
+                  ))}
+                </>
+            )}
             </Card>
         ))}
         </Page>
