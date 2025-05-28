@@ -129,8 +129,8 @@ export default function ProductList() {
                 </>
             )}
             </Card>
-        ))}
-        </Page>
-    </AppProvider>
-  );
+                )})}
+            </Page>
+      </AppProvider>
+    );
 }
