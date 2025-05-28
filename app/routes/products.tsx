@@ -119,6 +119,7 @@ export default function ProductList() {
                 </Button>
                 {/* </HorizontalStack> */}
             </fetcher.Form>
+            Tags List: 
             {productTags.length > 0 && (
                 <>
                   {productTags.map((tag: string, index: number) => (
