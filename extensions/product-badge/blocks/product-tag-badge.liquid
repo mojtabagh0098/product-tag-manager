@@ -1,0 +1,42 @@
+<!-- Block برای نمایش تگ محصول -->
+<div id="product-tags-app" data-product-id="{{ product.id }}"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const container = document.getElementById("product-tags-app");
+    const productId = container?.dataset.productId;
+
+    if (!productId) return;
+
+    const response = await fetch(`/apps/{{ shop.metafields.app_handle }}/api/tags/${productId}`);
+    const data = await response.json();
+
+    if (!data.tags || data.tags.length === 0) return;
+
+    const tagElements = data.tags.map(tag => {
+      const span = document.createElement("span");
+      span.innerText = `#${tag}`;
+      span.style.padding = "4px 8px";
+      span.style.marginRight = "5px";
+      span.style.borderRadius = "4px";
+      span.style.backgroundColor = "#f3f3f3";
+      span.style.fontSize = "13px";
+      span.style.display = "inline-block";
+      return span;
+    });
+
+    tagElements.forEach(el => container.appendChild(el));
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Star Rating",
+  "target": "section",
+  "settings": [
+    { "type": "product", "id": "product", "label": "product", "autofill": true },
+    { "type": "color", "id": "colour", "label": "Star Colour", "default": "#ff0000" }
+  ]
+}
+{% endschema %}
+
