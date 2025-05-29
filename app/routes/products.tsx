@@ -8,6 +8,7 @@ import {
 import { authenticate } from "../shopify.server";
 import prisma from "../db.server";
 import {
+  AppProvider,
   Page,
   Card,
   InlineStack,
@@ -96,74 +97,76 @@ export default function ProductList() {
   };
 
   return (
-    <Page title="Products">
-      {products.map((product: any) => {
-        const productTags = tags.find(
-          (t: any) => t.productId === product.id
-        )?.tags || [];
+    <AppProvider i18n={[]}>
+        <Page title="Products">
+        {products.map((product: any) => {
+            const productTags = tags.find(
+            (t: any) => t.productId === product.id
+            )?.tags || [];
 
-        return (
-          <Card key={product.id} padding="400">
-            <Box paddingBlockEnd="300">
-              <Text as="p" variant="bodySm" tone="subdued">
-                Handle: {product.handle}
-              </Text>
-            </Box>
-
-            {/* نمایش تگ‌ها */}
-            {productTags.length > 0 && (
-              <InlineStack gap="200" wrap>
-                {productTags.map((tag: string, index: number) => (
-                  <fetcher.Form method="post" key={index}>
-                    <input
-                      type="hidden"
-                      name="productId"
-                      value={product.id}
-                    />
-                    <input type="hidden" name="removeTag" value={tag} />
-                    <Box
-                      paddingInline="300"
-                      paddingBlock="200"
-                      background="bg-surface-secondary"
-                      borderRadius="200"
-                    >
-                      <Text as="span" variant="bodySm" tone="subdued">
-                        #{tag}
-                      </Text>
-                      <Button
-                        icon={<Icon source={XSmallIcon} tone="base" />}
-                        accessibilityLabel={`Remove ${tag}`}
-                        size="micro"
-                        variant="plain"
-                      />
-                    </Box>
-                  </fetcher.Form>
-                ))}
-              </InlineStack>
-            )}
-
-            {/* فرم افزودن تگ */}
-            <fetcher.Form method="post">
-              <input type="hidden" name="productId" value={product.id} />
-              <InlineStack gap="300" align="center">
-                <Box maxWidth="300px">
-                  <TextField
-                    label="Add tag"
-                    labelHidden
-                    name="tag"
-                    autoComplete="off"
-                    value={formStates[product.id] || ""}
-                    onChange={(value) => handleChange(product.id, value)}
-                  />
+            return (
+            <Card key={product.id} padding="400">
+                <Box paddingBlockEnd="300">
+                <Text as="p" variant="bodySm" tone="subdued">
+                    Handle: {product.handle}
+                </Text>
                 </Box>
-                <Button submit variant="primary">
-                  Add
-                </Button>
-              </InlineStack>
-            </fetcher.Form>
-          </Card>
-        );
-      })}
-    </Page>
+
+                {/* نمایش تگ‌ها */}
+                {productTags.length > 0 && (
+                <InlineStack gap="200" wrap>
+                    {productTags.map((tag: string, index: number) => (
+                    <fetcher.Form method="post" key={index}>
+                        <input
+                        type="hidden"
+                        name="productId"
+                        value={product.id}
+                        />
+                        <input type="hidden" name="removeTag" value={tag} />
+                        <Box
+                        paddingInline="300"
+                        paddingBlock="200"
+                        background="bg-surface-secondary"
+                        borderRadius="200"
+                        >
+                        <Text as="span" variant="bodySm" tone="subdued">
+                            #{tag}
+                        </Text>
+                        <Button
+                            icon={<Icon source={XSmallIcon} tone="base" />}
+                            accessibilityLabel={`Remove ${tag}`}
+                            size="micro"
+                            variant="plain"
+                        />
+                        </Box>
+                    </fetcher.Form>
+                    ))}
+                </InlineStack>
+                )}
+
+                {/* فرم افزودن تگ */}
+                <fetcher.Form method="post">
+                <input type="hidden" name="productId" value={product.id} />
+                <InlineStack gap="300" align="center">
+                    <Box maxWidth="300px">
+                    <TextField
+                        label="Add tag"
+                        labelHidden
+                        name="tag"
+                        autoComplete="off"
+                        value={formStates[product.id] || ""}
+                        onChange={(value) => handleChange(product.id, value)}
+                    />
+                    </Box>
+                    <Button submit variant="primary">
+                    Add
+                    </Button>
+                </InlineStack>
+                </fetcher.Form>
+            </Card>
+            );
+        })}
+        </Page>
+    </AppProvider>
   );
 }
