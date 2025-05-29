@@ -3,7 +3,7 @@
 client_id = "3bd51ea4b27f1c661b01dae6a183631b"
 name = "product-tag-manager"
 handle = "product-tag-manager-7"
-application_url = "https://transmit-merger-hazard-design.trycloudflare.com"
+application_url = "https://skills-assisted-concentrate-labor.trycloudflare.com"
 embedded = true
 
 [build]
@@ -27,9 +27,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://transmit-merger-hazard-design.trycloudflare.com/auth/callback",
-  "https://transmit-merger-hazard-design.trycloudflare.com/auth/shopify/callback",
-  "https://transmit-merger-hazard-design.trycloudflare.com/api/auth/callback"
+  "https://skills-assisted-concentrate-labor.trycloudflare.com/auth/callback",
+  "https://skills-assisted-concentrate-labor.trycloudflare.com/auth/shopify/callback",
+  "https://skills-assisted-concentrate-labor.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]
