@@ -128,34 +128,11 @@ export default function ProductList() {
               </Text>
             </Box>
 
-            {/* نمایش تگ‌ها */}
-            {productTags.length > 0 && (
-              <InlineStack gap="200" wrap>
-                {productTags.map((tag: string, index: number) => (
-                //   <Box
-                //     key={index}
-                //     paddingInline="300"
-                //     paddingBlock="200"
-                //     background="bg-surface-secondary"
-                //     borderRadius="200"
-                //   >
-                //     <Text as="span" variant="bodySm" tone="subdued">
-                //       #{tag}
-                //     </Text>
-                //     <Button
-                //       icon={<Icon source={XSmallIcon} tone="base" />}
-                //       accessibilityLabel={`Remove ${tag}`}
-                //       size="micro"
-                //       variant="plain"
-                //       onClick={() => handleRemove(product.id, tag)}
-                //     />
-                //   </Box>
-                <h3 key={index}>hkjh</h3>
-                ))}
-              </InlineStack>
-            )}
 
-            {/* فرم افزودن تگ */}
+
+            
+
+
             <form method="post">
               <input type="hidden" name="productId" value={product.id} />
               <InlineStack gap="300" align="center">
