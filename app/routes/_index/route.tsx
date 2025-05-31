@@ -1,6 +1,6 @@
 import { useLoaderData } from "@remix-run/react";
 import { json } from "@remix-run/node";
-import { AppProvider, Card, Page } from "@shopify/polaris";
+import { Card, Page } from "@shopify/polaris";
 import prisma from "../../db.server";
 
 type ProductTag = {
@@ -18,7 +18,7 @@ export default function Index() {
   const { tags } = useLoaderData<typeof loader>();
 
   return (
-    <AppProvider i18n={{}}>
+
         <Page>
         {tags.map((tag: ProductTag) => (
             <Card key={tag.id} padding="400" roundedAbove="sm">
@@ -27,6 +27,6 @@ export default function Index() {
             </Card>
         ))}
         </Page>
-    </AppProvider>
+    
   );
 }
