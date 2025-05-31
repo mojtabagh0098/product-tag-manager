@@ -97,7 +97,7 @@ export default function ProductList() {
   };
 
   return (
-        <Page title="Products">
+    <div>
         {products.map((product: any) => {
             const productTags = tags.find(
             (t: any) => t.productId === product.id
@@ -165,6 +165,6 @@ export default function ProductList() {
             </Card>
             );
         })}
-        </Page>
+    </div>
   );
 }
