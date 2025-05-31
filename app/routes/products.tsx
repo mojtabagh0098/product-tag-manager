@@ -134,7 +134,11 @@ export default function ProductList() {
             <InlineStack gap="200" wrap>
                 {productTags.map((tag: string, index: number) => (
                 <form method="post" key={index}>
-                    
+                    <input
+                    type="hidden"
+                    name="productId"
+                    value={product.id}
+                    />
                 </form>
                 ))}
             </InlineStack>
