@@ -139,6 +139,14 @@ export default function ProductList() {
                     name="productId"
                     value={product.id}
                     />
+                    <input type="hidden" name="removeTag" value={tag} />
+                    <Box
+                    paddingInline="300"
+                    paddingBlock="200"
+                    background="bg-surface-secondary"
+                    borderRadius="200"
+                    >
+                    </Box>
                 </form>
                 ))}
             </InlineStack>
