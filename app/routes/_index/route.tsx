@@ -19,7 +19,7 @@ export default function Index() {
 
   return (
     <AppProvider i18n={{}}>
-        <Page title="Product Tags Manager">
+        <Page>
         {tags.map((tag: ProductTag) => (
             <Card key={tag.id} padding="400" roundedAbove="sm">
             <h2>Product ID: {tag.productId}</h2>
