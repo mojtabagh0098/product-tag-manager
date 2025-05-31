@@ -134,35 +134,14 @@ export default function ProductList() {
             <InlineStack gap="200" wrap>
                 {productTags.map((tag: string, index: number) => (
                 <form method="post" key={index}>
-                    <input
-                    type="hidden"
-                    name="productId"
-                    value={product.id}
-                    />
-                    <input type="hidden" name="removeTag" value={tag} />
-                    <Box
-                    paddingInline="300"
-                    paddingBlock="200"
-                    background="bg-surface-secondary"
-                    borderRadius="200"
-                    >
-                    <Text as="span" variant="bodySm" tone="subdued">
-                        #{tag}
-                    </Text>
-                    <Button
-                        icon={<Icon source={XSmallIcon} tone="base" />}
-                        accessibilityLabel={`Remove ${tag}`}
-                        size="micro"
-                        variant="plain"
-                    />
-                    </Box>
+                    
                 </form>
                 ))}
             </InlineStack>
             )}
 
 
-            
+
           </Card>
         );
       })}
