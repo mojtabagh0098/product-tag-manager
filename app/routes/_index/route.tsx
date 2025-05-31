@@ -18,13 +18,15 @@ export default function Index() {
   const { tags } = useLoaderData<typeof loader>();
 
   return (
-    <Page title="Product Tags Manager">
-    {tags.map((tag: ProductTag) => (
-        <Card key={tag.id} padding="400" roundedAbove="sm">
-        <h2>Product ID: {tag.productId}</h2>
-        tags: <p>{tag.tags.join(", ")}</p>
-        </Card>
-    ))}
-    </Page>
+    <AppProvider i18n={{}}>
+        <Page title="Product Tags Manager">
+        {tags.map((tag: ProductTag) => (
+            <Card key={tag.id} padding="400" roundedAbove="sm">
+            <h2>Product ID: {tag.productId}</h2>
+            tags: <p>{tag.tags.join(", ")}</p>
+            </Card>
+        ))}
+        </Page>
+    </AppProvider>
   );
 }

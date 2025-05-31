@@ -97,7 +97,6 @@ export default function ProductList() {
   };
 
   return (
-    <AppProvider i18n={[]}>
         <Page title="Products">
         {products.map((product: any) => {
             const productTags = tags.find(
@@ -167,6 +166,5 @@ export default function ProductList() {
             );
         })}
         </Page>
-    </AppProvider>
   );
 }
