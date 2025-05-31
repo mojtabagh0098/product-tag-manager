@@ -150,9 +150,8 @@ export default function ProductList() {
                         #{tag}
                     </Text>
                     <Button
-
-
-                        submit
+                        icon={<Icon source={XSmallIcon} tone="base" />}
+                        // accessibilityLabel={`Remove ${tag}`}
                         size="micro"
                         variant="plain"
                     />
