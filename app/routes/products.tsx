@@ -5,8 +5,8 @@ import {
   json,
   redirect,
 } from "@remix-run/node";
-import { authenticate } from "../../shopify.server";
-import prisma from "../../db.server";
+import { authenticate } from "../shopify.server";
+import prisma from "../db.server";
 import {
   Page,
   Card,
@@ -96,7 +96,7 @@ export default function ProductList() {
   };
 
   return (
-    <Page title="Products">
+    <Page>
         {products.map((product: any) => {
             const productTags = tags.find(
             (t: any) => t.productId === product.id
