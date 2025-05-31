@@ -133,7 +133,7 @@ export default function ProductList() {
             {productTags.length > 0 && (
             <InlineStack gap="200" wrap>
                 {productTags.map((tag: string, index: number) => (
-                <fetcher.Form method="post" key={index}>
+                <form method="post" key={index}>
                     <input
                     type="hidden"
                     name="productId"
@@ -156,7 +156,7 @@ export default function ProductList() {
                         variant="plain"
                     />
                     </Box>
-                </fetcher.Form>
+                </form>
                 ))}
             </InlineStack>
             )}
