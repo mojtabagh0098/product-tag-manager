@@ -130,27 +130,10 @@ export default function ProductList() {
 
 
 
+
+
+
             
-
-
-            <form method="post">
-              <input type="hidden" name="productId" value={product.id} />
-              <InlineStack gap="300" align="center">
-                <Box maxWidth="300px">
-                  <TextField
-                    label="Add tag"
-                    labelHidden
-                    name="tag"
-                    autoComplete="off"
-                    value={formStates[product.id] || ""}
-                    onChange={(value) => handleChange(product.id, value)}
-                  />
-                </Box>
-                <Button submit variant="primary">
-                  Add
-                </Button>
-              </InlineStack>
-            </form>
           </Card>
         );
       })}
