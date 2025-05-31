@@ -19,7 +19,7 @@ export default function App() {
   const { apiKey } = useLoaderData<typeof loader>();
 
   return (
-    <AppProvider isEmbeddedApp apiKey={apiKey} i18n={[]}>
+    <AppProvider isEmbeddedApp apiKey={apiKey} i18n={{}}>
       <NavMenu>
         <Link to="/" rel="home">
           Home
