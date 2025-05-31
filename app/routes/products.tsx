@@ -146,6 +146,9 @@ export default function ProductList() {
                     background="bg-surface-secondary"
                     borderRadius="200"
                     >
+                    <Text as="span" variant="bodySm" tone="subdued">
+                        #{tag}
+                    </Text>
                     </Box>
                 </form>
                 ))}
