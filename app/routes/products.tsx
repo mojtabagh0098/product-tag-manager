@@ -149,10 +149,7 @@ export default function ProductList() {
                     <Text as="span" variant="bodySm" tone="subdued">
                         #{tag}
                     </Text>
-                    <Button
-                        size="micro"
-                        variant="plain"
-                    />
+                    
                     </Box>
                 </form>
                 ))}
