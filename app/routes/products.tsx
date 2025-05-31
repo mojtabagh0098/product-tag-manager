@@ -150,9 +150,7 @@ export default function ProductList() {
                         #{tag}
                     </Text>
                     <Button
-                        accessibilityLabel={`Remove ${tag}`}
-                        size="micro"
-                        variant="plain"
+                        submit
                     >
                         ll
                         </Button>
