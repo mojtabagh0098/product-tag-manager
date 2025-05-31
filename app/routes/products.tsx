@@ -88,7 +88,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 export default function ProductList() {
   const { products, tags } = useLoaderData<typeof loader>();
-//   const fetcher = useFetcher();
+  const fetcher = useFetcher();
 //   const [formStates, setFormStates] = useState<Record<string, string>>({});
 
 //   const handleChange = (productId: string, value: string) => {
@@ -113,7 +113,7 @@ export default function ProductList() {
                 {/* نمایش تگ‌ها */}
                 {productTags.length > 0 && (
                 <InlineStack gap="200" wrap>
-                    {/* {productTags.map((tag: string, index: number) => (
+                    {productTags.map((tag: string, index: number) => (
                     <fetcher.Form method="post" key={index}>
                         <input
                         type="hidden"
@@ -137,8 +137,8 @@ export default function ProductList() {
                             variant="plain"
                         />
                         </Box>
-                    // </fetcher.Form>
-                    ))} */}
+                    </fetcher.Form>
+                    ))}
                 </InlineStack>
                 )}
                 {/* <fetcher.Form method="post">
