@@ -149,6 +149,12 @@ export default function ProductList() {
                     <Text as="span" variant="bodySm" tone="subdued">
                         #{tag}
                     </Text>
+                    <Button
+                        icon={<Icon source={XSmallIcon} tone="base" />}
+                        accessibilityLabel={`Remove ${tag}`}
+                        size="micro"
+                        variant="plain"
+                    />
                     </Box>
                 </form>
                 ))}
